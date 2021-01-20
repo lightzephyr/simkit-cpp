@@ -10,6 +10,9 @@ project(${PROJECT_NAME_STR})
 # Compiler configuration
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 
+# Includes
+include_directories(include)
+
 # Unit tests
 find_package(Boost COMPONENTS filesystem system unit_test_framework REQUIRED)
 include(CTest)
