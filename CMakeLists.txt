@@ -13,8 +13,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 # Unit tests
 find_package(Boost COMPONENTS filesystem system unit_test_framework REQUIRED)
 include(CTest)
-enable_testing()
 include(BoostTestHelpers.cmake)
+enable_testing()
 add_subdirectory(test)
 
 # Gather all sources except the main entry point
