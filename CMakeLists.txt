@@ -10,12 +10,12 @@ project(${PROJECT_NAME_STR})
 # Compiler configuration
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 
-# Testing
+# Unit tests
+find_package(Boost COMPONENTS filesystem system unit_test_framework REQUIRED)
 include(CTest)
 enable_testing()
-
-# Dependencies
-find_package(Boost COMPONENTS filesystem system unit_test_framework REQUIRED)
+include(BoostTestHelpers.cmake)
+add_subdirectory(test)
 
 # Gather all sources except the main entry point
 file(GLOB_RECURSE INC_FILES src/*/*.hpp)
