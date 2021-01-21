@@ -1,16 +1,32 @@
+#include <algorithm>
+#include <array>
 #include <iostream>
-#include <vector>
-#include <string>
+#include <string_view>
 
 using namespace std;
 
 int main()
 {
-   vector<string> msg {"Hello", "C++", "World", "from", "VS Code", "and the C++ extension!"};
+   constexpr std::array<std::string_view, 4> arr{"apple", "banana", "walnut", "pear"};
 
-   for (const string& word : msg)
+   std::cout << "search for: ";
+
+   std::string search{};
+   std::cin >> search;
+
+   const auto found{std::find_if(arr.begin(), arr.end(),
+                                 [search](std::string_view str) -> bool {
+                                    return (str.find(search) != std::string_view::npos);
+                                 })};
+
+   if (found == arr.end())
    {
-      cout << word << " ";
+      std::cout << "No Nuts\n";
    }
-   cout << endl;
+   else
+   {
+      std::cout << "Found " << *found << '\n';
+   }
+
+   return 0;
 }
