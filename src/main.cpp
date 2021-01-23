@@ -44,7 +44,7 @@ int main()
 
    runInSchedule(model);
 
-   runScheduler();
+   scheduler::runScheduler();
 
    return 0;
 }
