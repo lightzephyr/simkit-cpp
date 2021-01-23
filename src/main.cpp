@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string_view>
 
+#include "classes.hpp"
+
 using namespace std;
 
 int main()
@@ -11,8 +13,8 @@ int main()
 
    std::cout << "search for: ";
 
-   std::string search{};
-   std::cin >> search;
+   std::string search{"nuts"};
+   //std::cin >> search;
 
    const auto found{std::find_if(arr.begin(), arr.end(),
                                  [search](std::string_view str) -> bool {
@@ -27,6 +29,12 @@ int main()
    {
       std::cout << "Found " << *found << '\n';
    }
+
+   for (const auto &element : arr)
+   {
+      cout << element << ' ';
+   }
+   cout << '\n';
 
    return 0;
 }
