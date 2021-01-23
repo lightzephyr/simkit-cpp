@@ -8,8 +8,8 @@ public:
   virtual ~Model(){};
 
   /* Run the model for the specified time interval
- * @param dt The time interval in miliseconds
- */
+   * @param dt The time interval in miliseconds
+   */
   virtual void run(int dt) = 0;
 };
 
