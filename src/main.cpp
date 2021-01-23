@@ -6,6 +6,7 @@
 #include <boost/timer/timer.hpp>
 
 #include "LinearMotionModel.hpp"
+#include "runScheduler.hpp"
 
 using namespace boost::timer;
 using namespace LinearMotion;
@@ -42,6 +43,8 @@ int main()
        }};
 
    runInSchedule(model);
+
+   runScheduler();
 
    return 0;
 }

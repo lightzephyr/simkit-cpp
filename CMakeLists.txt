@@ -20,7 +20,7 @@ set(SRC_FILES src/main.cpp src/LinearMotionModel.cpp)
 # Build
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin")
 add_executable(simkit ${SRC_FILES})
-target_link_libraries(simkit ${Boost_TIMER_LIBRARY})
+target_link_libraries(simkit ${Boost_TIMER_LIBRARY} pthread)
 
 # Tests
 include(CTest)
