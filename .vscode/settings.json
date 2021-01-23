@@ -58,6 +58,13 @@
     "typeindex": "cpp",
     "typeinfo": "cpp",
     "variant": "cpp",
-    "bit": "cpp"
+    "bit": "cpp",
+    "csignal": "cpp",
+    "codecvt": "cpp",
+    "condition_variable": "cpp",
+    "future": "cpp",
+    "iomanip": "cpp",
+    "mutex": "cpp",
+    "scoped_allocator": "cpp"
   }
 }

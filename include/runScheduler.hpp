@@ -10,51 +10,53 @@ using namespace boost::timer;
 namespace scheduler
 {
 
-  void run(cpu_timer &timer, int period, const bool &interrupt)
+  void run(const bool &interrupt)
   {
+    constexpr int frequency = 60;                             // [Hz]
+    constexpr std::uint32_t period = (1.0 / frequency) * 1e9; // [nanoseconds]
+
+    cpu_timer clockTimer;
+    cpu_timer tickTimer;
+
+    std::cout << "Scheduler started with period = " << period * 1e-6 << " miliseconds." << '\n';
+
     try
     {
       while (!interrupt)
       {
-        timer.start();
-        while (true)
+        tickTimer.start();
+        while (tickTimer.elapsed().wall < period)
         {
-          if (timer.elapsed().wall > period)
-          {
-            timer.stop();
-            break;
-          }
+          // run as fast as possible
         }
-        int elapsedTime = timer.elapsed().wall;
-        //std::cout << "Elapsed time: " << timer.elapsed().wall * 1e-6 << '\n';
-        if (elapsedTime < 16660000 || elapsedTime > 16680000)
+        tickTimer.stop();
+        int tickDuration = tickTimer.elapsed().wall;
+        //std::cout << "Tick duration: " << tickDuration * 1e-6 << '\n';
+        if (tickDuration < 16660000 || tickDuration > 16680000)
         {
-          throw "Timer accurancy error exceeded tolerance of ±0.01 ms";
+          clockTimer.stop();
+          throw "Tick duration exceeded tolerance of 16.67±0.01 ms";
         }
       }
+      std::cout << "Scheduler finished. after " << clockTimer.elapsed().wall * 1e-6 << " ms" << '\n';
     }
     catch (const char *e)
     {
       std::cerr << e << '\n';
-      double elapsedTime = timer.elapsed().wall * 1e-6;
-      std::cerr << "Elapsed time was: " << elapsedTime << '\n';
-      std::cerr << "Error was: " << elapsedTime - 16.67 << '\n';
+      double tickDuration = tickTimer.elapsed().wall * 1e-6;
+      std::cerr << "Tick duration was: " << tickDuration << " ms" << '\n';
+      std::cerr << "Error was: " << tickDuration - 16.67 << " ms" << '\n';
+      std::cout << "Scheduler finished after " << clockTimer.elapsed().wall * 1e-6 << " ms with error." << '\n';
     }
   }
 
   int runScheduler()
   {
-    constexpr int frequency = 60;                             // [Hz]
-    constexpr std::uint32_t period = (1.0 / frequency) * 1e9; // [nanoseconds]
-
-    cpu_timer timer;
-    std::cout << "Scheduler started with period = " << period * 1e-6 << " miliseconds." << '\n';
     bool interrupt = false;
-    std::thread scheduler(run, std::ref(timer), period, std::ref(interrupt));
+    std::thread scheduler(run, std::ref(interrupt));
     std::cin.get();
     interrupt = true;
     scheduler.join();
-    std::cout << "Scheduler finished." << '\n';
 
     return 0;
   }
