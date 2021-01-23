@@ -12,7 +12,7 @@ message(STATUS "PROJECT_SOURCE_DIR = " ${PROJECT_SOURCE_DIR})
 
 # Gather source files
 include_directories(include)
-set(SRC_FILES src/main.cpp src/Model.cpp)
+set(SRC_FILES src/main.cpp src/LinearMotionModel.cpp)
 
 # Build
 add_executable(simkit ${SRC_FILES})

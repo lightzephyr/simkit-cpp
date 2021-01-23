@@ -3,17 +3,25 @@
 #include <iostream>
 #include <string_view>
 
-#include "Model.hpp"
+#include "LinearMotionModel.hpp"
 
-using namespace std;
+using namespace LinearMotion;
 
 int main()
 {
-   Model model{};
-   model.setInput(1);
-   cout << "Model output: " << model.getOutput() << '\n';
+   LinearMotionModel model{};
+   const State &state = model.getOutput();
+
+   auto printState{
+       [&state]() {
+          std::cout << "Model output: position = " << state.position << ", velocity = " << state.velocity << ", acceleration = " << state.acceleration << '\n';
+       }};
+
+   printState();
+   model.setInput(1.0);
+   printState();
    model.run();
-   cout << "Model output: " << model.getOutput() << '\n';
+   printState();
 
    return 0;
 }

@@ -3,18 +3,14 @@
 
 class Model
 {
-private:
-  int m_input;
-  int m_state;
-  int m_output;
-
 public:
-  Model() : m_input{0}, m_state{0}, m_output{0} {};
+  Model(){};
   virtual ~Model(){};
 
-  void setInput(int input);
-  void run();
-  int getOutput() const;
+  /* Run the model for the specified time interval
+ * @param dt The time interval in miliseconds
+ */
+  virtual void run(int dt) = 0;
 };
 
 #endif
