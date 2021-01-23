@@ -45,7 +45,7 @@ int main()
    runInSchedule(model);
 
    bool interrupt = false;
-   std::thread schedulingThread(scheduling::runSchedule, 60, 0.1, std::ref(interrupt));
+   std::thread schedulingThread(scheduling::runSchedule, 60, 0.01, std::ref(interrupt));
    std::cin.get();
    interrupt = true;
    schedulingThread.join();
